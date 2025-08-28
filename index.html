@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Countdown ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff6f91, 0 0 20px #ff6f91;
+    }
+
+    #timer {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 20px 0;
+      text-shadow: 0 0 10px #f9d423, 0 0 20px #f9d423;
+    }
+
+    .heart {
+      font-size: 2em;
+      color: #ff477e;
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+      50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⏳ Time Remaining for Your Birthday, Babe 🎉</h1>
+    <div id="timer"></div>
+    <div class="heart">❤️</div>
+  </div>
+
+  <script>
+    function updateTimer() {
+      const now = new Date();
+      const year = now.getFullYear();
+      let birthday = new Date(`${year}-08-29T00:00:00`);
+
+      // if already past this year's birthday, set for next year
+      if (now > birthday) {
+        birthday = new Date(`${year + 1}-08-29T00:00:00`);
+      }
+
+      const diff = birthday - now;
+
+      if (diff <= 0) {
+        document.getElementById("timer").innerHTML = "🎂 It's Your Birthday Babe! 🎉";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("timer").innerHTML =
+        `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
